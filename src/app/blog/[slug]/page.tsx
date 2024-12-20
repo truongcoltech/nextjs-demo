@@ -1,32 +1,47 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import styles from './BlogDetail.module.css'; // Import CSS module
 
-const BlogDetail = ({ params }: { params: { slug: string } }) => {
-  const [blog, setBlog] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+const BlogDetail = () => {
+    const params = useParams();
+    const slug = params?.slug;
+    const [blog, setBlog] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBlogDetail = async () => {
-      const response = await fetch(`/api/blog/${params.slug}`);
-      const data = await response.json();
-      setBlog(data);
-      setLoading(false);
-    };
+    useEffect(() => {
+        if (!slug) return;
 
-    fetchBlogDetail();
-  }, [params.slug]);
+        const fetchBlog = async () => {
+            try {
+                const response = await fetch(`/api/blog/${slug}`);
+                const data = await response.json();
+                setBlog(data);
+            } catch (error) {
+                console.error('Error fetching blog details:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+        fetchBlog();
+    }, [slug]);
 
-  return (
-    <div>
-      <h1>{blog.title}</h1>
-      <p>{blog.body}</p>
-    </div>
-  );
+    if (loading) {
+        return <div className={styles.loading}>Loading...</div>;
+    }
+
+    if (!blog) {
+        return <div className={styles.error}>Blog not found.</div>;
+    }
+
+    return (
+        <div className={styles.container}>
+            <h1 className={styles.title}>{blog.title}</h1>
+            <p className={styles.body}>{blog.body}</p>
+        </div>
+    );
 };
 
 export default BlogDetail;

@@ -1,14 +1,17 @@
+// app/api/blog/[slug]/route.ts
+
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function GET(request: Request, context: { params: { slug: string } }) {
+  // Awaiting params as it might be a promise
+  const { slug } = await context.params;
 
   if (!slug) {
     return NextResponse.json({ message: 'Slug is missing' }, { status: 400 });
   }
 
   try {
-    // Fetch the blog post using the slug
+    // Fetch the blog post using the ID (slug here is treated as the ID)
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`);
     
     if (!response.ok) {
