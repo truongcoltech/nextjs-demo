@@ -23,14 +23,30 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simulate form submission
+    // Show sending status
     setStatus("Sending...");
 
-    // Here you can handle your API request to send the form data to a backend
-    setTimeout(() => {
-      setStatus("Message sent successfully!");
-      setFormData({ name: "", email: "", message: "" });
-    }, 2000);
+    try {
+      // Send form data to the API
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setStatus(data.message); // Display success message
+        setFormData({ name: "", email: "", message: "" }); // Clear form data
+      } else {
+        setStatus("There was an error submitting the form.");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("There was an error submitting the form.");
+    }
   };
 
   return (
@@ -54,7 +70,7 @@ const Contact = () => {
               type="text"
               value={formData.name}
               onChange={handleChange}
-              className="mt-2 p-3 w-full border rounded-md border-gray-300"
+              className="mt-2 p-3 w-full border rounded-md border-gray-300  text-gray-700"
               required
             />
           </div>
@@ -69,7 +85,7 @@ const Contact = () => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-2 p-3 w-full border rounded-md border-gray-300"
+              className="mt-2 p-3 w-full border rounded-md border-gray-300  text-gray-700"
               required
             />
           </div>
@@ -83,7 +99,7 @@ const Contact = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              className="mt-2 p-3 w-full border rounded-md border-gray-300"
+              className="mt-2 p-3 w-full border rounded-md border-gray-300  text-gray-700"
               rows={4}
               required
             />
