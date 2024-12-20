@@ -2,9 +2,10 @@
 
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, context: { params: { slug: string } }) {
+
+export async function GET(request: Request, context: { params: Promise<{ slug: string }> }) {
   // Awaiting params as it might be a promise
-  const { slug } = await context.params;
+  const { slug } = await (context).params;
 
   if (!slug) {
     return NextResponse.json({ message: 'Slug is missing' }, { status: 400 });
