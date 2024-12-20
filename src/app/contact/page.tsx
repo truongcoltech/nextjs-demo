@@ -38,7 +38,7 @@ const Contact = () => {
       <div className="bg-white shadow-md rounded-lg p-8 max-w-3xl text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-6">Contact Us</h1>
         <p className="text-gray-600 text-lg leading-relaxed mb-4">
-          We'd love to hear from you! Please fill out the form below, and we'll get back to you as soon as possible.
+          We&apos;d love to hear from you! Please fill out the form below, and we&apos;ll get back to you as soon as possible.
         </p>
 
         {status && <p className="text-green-600 text-xl">{status}</p>}

@@ -4,7 +4,7 @@ export default function About() {
         <div className="bg-white shadow-md rounded-lg p-8 max-w-3xl text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-6">About Us</h1>
           <p className="text-gray-600 text-lg leading-relaxed mb-4">
-            Welcome to our website! We're dedicated to creating exceptional web
+            Welcome to our website! We&apos;re dedicated to creating exceptional web
             applications using cutting-edge technologies like Next.js.
           </p>
           <p className="text-gray-600 text-lg leading-relaxed mb-4">
