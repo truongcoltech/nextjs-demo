@@ -15,6 +15,14 @@ const Navigation = () => {
             >
               Home
             </Link>
+
+            <Link
+              href="/saas"
+              className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+            >
+              Optimizely SaaS
+            </Link>
+
             <Link
               href="/blog"
               className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
