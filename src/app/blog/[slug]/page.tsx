@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+
+import { Blog } from "../../types/blogTypes"; // Import the Blog interface
+
 import styles from './BlogDetail.module.css'; // Import CSS module
 
 const BlogDetail = () => {
     const params = useParams();
     const slug = params?.slug;
-    const [blog, setBlog] = useState<any>(null);
+
+    const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
